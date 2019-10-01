@@ -1,5 +1,7 @@
-img {
-    max-width: 300px;
-    max-height: 300px;
-    padding: 20px;
+.sidebar, .mainPart {
+  height: 100%;
+}
+
+.sidebar {
+  float: left;
 }

@@ -1,0 +1,12 @@
+<mat-sidenav-container autosize>
+
+  <mat-sidenav #signSidenav class="mainSidenav" mode="side">
+    <router-outlet></router-outlet>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <button mat-icon-button (click)="signSidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </mat-sidenav-content>
+</mat-sidenav-container>

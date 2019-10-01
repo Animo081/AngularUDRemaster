@@ -1,0 +1,19 @@
+mat-sidenav-container{
+  height: 100%;
+  width: 100%;
+}
+
+mat-sidenav-content{
+  background-color: darkslateblue;
+  border: none;
+  color: white;
+}
+
+mat-form-field {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  font-size: 20px;
+  padding: 10px 15px;
+}

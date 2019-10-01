@@ -1,0 +1,37 @@
+
+<div  class="table-container mat-elevation-z8">
+<table mat-table [dataSource]="files">
+  <ng-container matColumnDef="file">
+    <th mat-header-cell *matHeaderCellDef> File </th>
+    <td mat-cell *matCellDef="let file" [ngSwitch]="file.type" class="belaya_zarya">
+      <img *ngSwitchCase="'image/jpeg'" [src]="'http://localhost:8080/files/'+file.realName">
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let file"> {{file.name}} </td>
+  </ng-container>
+  <ng-container matColumnDef="type">
+    <th mat-header-cell *matHeaderCellDef> Type </th>
+    <td mat-cell *matCellDef="let file"> {{file.type}} </td>
+  </ng-container>
+  <ng-container matColumnDef="size">
+    <th mat-header-cell *matHeaderCellDef> Size </th>
+    <td mat-cell *matCellDef="let file"> {{file.size}} </td>
+  </ng-container>
+  <ng-container matColumnDef="insertedOn">
+    <th mat-header-cell *matHeaderCellDef> Created </th>
+    <td mat-cell *matCellDef="let file"> {{file.insertedOn}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [length]="length"
+               [pageSize]="pageSize"
+               [pageSizeOptions]="pageSizeOptions"
+
+               (page)="pageEvent($event)">
+</mat-paginator>
+</div>

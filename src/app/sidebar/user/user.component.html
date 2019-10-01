@@ -1,0 +1,13 @@
+<form [formGroup]="userForm">
+  <mat-form-field>
+    <input matInput type="text" formControlName="username" placeholder="Username" (focusout)="submitForm(userForm)">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" formControlName="email" placeholder="E-mail" (focusout)="submitForm(userForm)">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" formControlName="description" placeholder="Bio" (focusout)="submitForm(userForm)">
+  </mat-form-field>
+</form>
+
+<button mat-raised-button class="logoutButton" (click)="Logout()" color="primary">Log out</button>

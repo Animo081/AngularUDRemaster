@@ -1,4 +1,7 @@
+<div class="sidebar">
+  <router-outlet name="sidebar"></router-outlet>
+</div>
 
-  <span *ngFor="let file of files" routerLink="/files">
-    <img [src] = "'http://localhost:8080/files/'+file.realName" controls>
-  </span>
+<div class="mainPart">
+  <router-outlet></router-outlet>
+</div>

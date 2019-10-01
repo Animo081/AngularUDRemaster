@@ -1,0 +1,59 @@
+.table-container {
+  height: 100%;
+  overflow: auto;
+}
+
+img {
+  min-width: 100px;
+  max-width: 200px;
+  min-height: 100px;
+  max-height: 200px;
+}
+
+table {
+  width: 100%;
+  background-color: transparent;
+}
+
+.mat-header-row {
+  background-color: rgba(255,255,255,.4);
+}
+
+.mat-header-row:hover {
+  background-color: rgba(255,255,255,.4);
+}
+
+td, th {
+  color: white;
+}
+
+td {
+  text-align: center;
+  font-size: 20px;
+  font-family: 'Satisfy', cursive;
+  background-color: rgba(255,255,255,.2);
+}
+
+tr:hover {
+  background-color: rgba(255,255,255,.4);
+}
+
+th {
+  font-size: 30px;
+  font-family: 'Satisfy', cursive;
+}
+
+.belaya_zarya{
+  border-left: 5px solid rgba(255,255,255,.6);
+}
+
+.mat-header-row {
+  text-align-last: center;
+}
+
+mat-paginator {
+  color: white;
+  font-size: 20px;
+  font-family: 'Satisfy', cursive;
+  background-color: transparent;
+}

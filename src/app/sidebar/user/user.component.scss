@@ -1,0 +1,13 @@
+mat-form-field {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  font-size: 20px;
+  padding: 10px 15px;
+}
+
+.logoutButton {
+  margin-right: 15px;
+  float: right;
+}

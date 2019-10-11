@@ -3,9 +3,10 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+// TODO: libraries should be in the first block and custom code in second.
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { routing }        from './app-routing.module';
+import { routing } from './app-routing.module';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -27,6 +28,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 
 import { ReactiveFormsModule } from "@angular/forms";
+// TODO: don't put all services in one folder. Create appropriate feature folders.
 import { UserService } from "./service/user.service";
 import { FileService } from "./service/file.service";
 

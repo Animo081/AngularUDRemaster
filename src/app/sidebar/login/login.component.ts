@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
+
 import { UserService } from "../../service/user.service";
 
 @Component({
@@ -13,6 +14,7 @@ import { UserService } from "../../service/user.service";
 @Injectable()
 export class LoginComponent {
 
+  /* TODO: use ReactiveForm */
   private login: string;
   private password: string;
 
@@ -22,9 +24,9 @@ export class LoginComponent {
     private userService: UserService,
   ) {}
 
-  public signIn(){
-
+  public signIn() {
     this.userService.signIn(this.login, this.password).subscribe((data:number) => {
+      // TODO: move to separate AuthSrvice
       localStorage.setItem("userId", data.toString());
       this.router.navigate([{ outlets: { primary: ['main','files'], sidebar: ['sidebar','user'] }}]);
     }, error => console.error(error));

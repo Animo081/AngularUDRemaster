@@ -16,6 +16,7 @@ export class FileService {
 
   public getUserFiles(page: number, size: number): Observable<File[]> {
 
+    // TODO: add global interceptor for tocken
     return this.http.get<File[]>("http://localhost:8080/file/download", {
       params : {
         userid: localStorage.getItem("userId"),

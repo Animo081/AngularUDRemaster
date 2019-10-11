@@ -1,9 +1,10 @@
-mat-sidenav-container{
+/* TODO: use .scss instead .css */
+mat-sidenav-container {
   height: 100%;
   width: 100%;
 }
 
-mat-sidenav-content{
+mat-sidenav-content {
   background-color: darkslateblue;
   border: none;
   color: white;

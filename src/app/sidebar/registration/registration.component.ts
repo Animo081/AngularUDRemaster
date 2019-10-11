@@ -11,6 +11,7 @@ import {resolve} from "url";
 })
 export class RegistrationComponent {
 
+  // TODO: use ReactiveForm
   private login: string;
   private password: string;
 
@@ -20,11 +21,13 @@ export class RegistrationComponent {
     private userService: UserService,
   ) {}
 
-  public Submit(){
+  // TODO: method should start from lowerCase
+  public Submit() {
     this.userService.signUp(this.login, this.password);
   }
 
-  public Cancel(){
+  // TODO: method should start from lowerCase
+  public Cancel() {
     this.router.navigate([{ outlets: { sidebar: ['sidebar','login'] }}]);
   }
 }

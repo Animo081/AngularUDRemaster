@@ -1,3 +1,4 @@
+// TODO: remove useless code
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 
 @Component({

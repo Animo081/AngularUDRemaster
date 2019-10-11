@@ -8,6 +8,8 @@
   <mat-form-field>
     <input matInput type="text" formControlName="description" placeholder="Bio" (focusout)="submitForm(userForm)">
   </mat-form-field>
+
+  <!-- TODO: use submit button instead of few focus events-->
 </form>
 
 <button mat-raised-button class="logoutButton" (click)="Logout()" color="primary">Log out</button>

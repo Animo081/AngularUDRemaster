@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { User } from "../wrappers/user";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
-import {Router} from "@angular/router";
+import { Observable, of as ObservableOf } from "rxjs";
+import { Router } from "@angular/router";
+
+import { User } from "../wrappers/user";
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +17,20 @@ export class UserService {
 
   public signIn(login: string, password: string): Observable<number> {
 
-    return this.http.get<number>('http://localhost:8080/user/login', {
+    // TODO: use Environment for ApiURL
+    return ObservableOf(12312312312312);
+/*    return this.http.get<number>('http://localhost:8080/user/login', {
+      // TODO: use either params or authTocken
       params: {login: login, password: password},
+      // TODO: don't use hardcode data
       headers: {Authorization: `Basic ${btoa('logich:pass')}`}
-    })
+    });*/
   }
 
   public signUp(login: string, password: string) {
 
+    // TODO: use Observable
+    // TODO: use .pipe for any logic before subscribe
     return new Promise((resolve, reject) => {
       this.http.post('http://localhost:8080/user/register', {}, {
         headers: {},

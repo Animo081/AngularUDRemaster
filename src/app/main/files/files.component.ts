@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FileService } from "../../service/file.service";
-import { File } from "../../wrappers/file"
 import { PageEvent } from "@angular/material";
+// TODO: remove useless code
+import { Observable } from 'rxjs';
+
+import { FileService } from "../../service/file.service";
+import { File } from "../../wrappers/file";
 
 @Component({
   selector: 'app-files',
@@ -10,7 +13,8 @@ import { PageEvent } from "@angular/material";
 })
 export class FilesComponent implements OnInit {
 
-  private files: File[]
+  // TODO: use Observable instead arrayData
+  private files: File[];
 
   private displayedColumns: string[] = ['file', 'name', 'type', 'size', 'insertedOn'];
 
@@ -20,20 +24,20 @@ export class FilesComponent implements OnInit {
 
   constructor(
     private fileService: FileService,
-  ){}
+  ) {}
 
   ngOnInit(): void {
     this.fileService.getFilesCount().subscribe((data: number) => {
       this.length = data;
-    })
+    });
     this.fileService.getUserFiles(0, this.pageSize).subscribe((data: File[]) => {
       this.files = data;
-    })
+    });
   }
 
-  private pageEvent(pageEvent: PageEvent){
+  private pageEvent(pageEvent: PageEvent) {
     this.fileService.getUserFiles(pageEvent.pageIndex, pageEvent.pageSize).subscribe((data: File[]) => {
       this.files = data;
-    })
+    });
   }
 }

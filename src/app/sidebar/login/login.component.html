@@ -1,16 +1,12 @@
-<mat-form-field>
-  <input matInput type="text" [(ngModel)]="login" placeholder="Login"><br>
-  <button mat-icon-button *ngIf="login" matSuffix mat-icon-button aria-label="Clear" (click)="login=''">
-    <mat-icon>close</mat-icon>
-  </button>
-</mat-form-field>
+<form [formGroup]="loginReactiveForm">
+  <mat-form-field>
+    <input matInput type="text" placeholder="Login" formControlName="login"><br>
+  </mat-form-field>
 
-<mat-form-field>
-  <input matInput type="password" [(ngModel)]="password" placeholder="Password">
-  <button mat-icon-button *ngIf="password" matSuffix mat-icon-button aria-label="Clear" (click)="password=''">
-    <mat-icon>close</mat-icon>
-  </button>
-</mat-form-field>
+  <mat-form-field>
+    <input matInput type="password" placeholder="Password" formControlName="password">
+  </mat-form-field>
 
-<button mat-raised-button class="signUpButton" (click)="signUp()" color="primary">Sign Up</button>
-<button mat-raised-button class="signInButton" (click)="signIn()" color="primary">Sign In</button>
+  <button mat-raised-button class="signUpButton" (click)="signUp()" color="primary">Sign Up</button>
+  <button mat-raised-button class="signInButton" (click)="signIn()" color="primary">Sign In</button>
+</form>

@@ -1,33 +1,46 @@
-import { Component} from '@angular/core';
+import { FormGroup, FormBuilder } from "@angular/forms";
+import { Component, OnInit } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { Router } from '@angular/router';
-import {UserService} from "../../service/user.service";
-import {resolve} from "url";
+
+import {AuthenticationService} from "../../service/user/authentication.service";
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.css']
+  styleUrls: ['./registration.component.scss']
 })
-export class RegistrationComponent {
+export class RegistrationComponent implements OnInit {
 
-  // TODO: use ReactiveForm
-  private login: string;
-  private password: string;
+  private registerReactiveForm: FormGroup;
 
   constructor(
+    private authenticationService: AuthenticationService,
+    private formBuilder: FormBuilder,
     private http: HttpClient,
     private router: Router,
-    private userService: UserService,
   ) {}
 
-  // TODO: method should start from lowerCase
-  public Submit() {
-    this.userService.signUp(this.login, this.password);
+  ngOnInit() {
+    this.initForm();
   }
 
-  // TODO: method should start from lowerCase
-  public Cancel() {
+  private initForm() {
+    this.registerReactiveForm = this.formBuilder.group({
+      login: [],
+      password: []
+    });
+  }
+
+  public submit() {
+
+    let login = this.registerReactiveForm.value["login"];
+    let password = this.registerReactiveForm.value["password"];
+
+    this.authenticationService.signUp(login, password);
+  }
+
+  public cancel() {
     this.router.navigate([{ outlets: { sidebar: ['sidebar','login'] }}]);
   }
 }

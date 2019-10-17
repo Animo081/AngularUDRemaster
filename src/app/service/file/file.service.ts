@@ -1,8 +1,9 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs";
-import { HttpClient } from "@angular/common/http";
-import { Router } from "@angular/router";
-import { File } from "../wrappers/file"
+
+import { environment } from "../../../environments/environment";
+import { File } from "../../wrappers/file"
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +12,11 @@ export class FileService {
 
   constructor(
     private http: HttpClient,
-    private router: Router,
   ) { }
 
   public getUserFiles(page: number, size: number): Observable<File[]> {
 
-    // TODO: add global interceptor for tocken
-    return this.http.get<File[]>("http://localhost:8080/file/download", {
+    return this.http.get<File[]>( environment.apiUrl + "file/download", {
       params : {
         userid: localStorage.getItem("userId"),
         page: page.toString(),
@@ -28,7 +27,7 @@ export class FileService {
 
   public getFilesCount(): Observable<number> {
 
-    return this.http.get<number>("http://localhost:8080/file/count", {
+    return this.http.get<number>(environment.apiUrl + "file/count", {
       params : { userid: localStorage.getItem("userId") }
     });
   }

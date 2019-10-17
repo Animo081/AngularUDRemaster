@@ -1,35 +1,44 @@
-import { Component } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Injectable } from '@angular/core';
 
-import { UserService } from "../../service/user.service";
+import {AuthenticationService} from "../../service/user/authentication.service";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.scss'],
 })
-
 @Injectable()
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
-  /* TODO: use ReactiveForm */
-  private login: string;
-  private password: string;
+  private loginReactiveForm: FormGroup;
 
   constructor(
+    private authenticationService: AuthenticationService,
+    private formBuilder: FormBuilder,
     private http: HttpClient,
     private router: Router,
-    private userService: UserService,
   ) {}
 
+  ngOnInit() {
+    this.initForm();
+  }
+
+  private initForm() {
+    this.loginReactiveForm = this.formBuilder.group({
+      login: [],
+      password: []
+    });
+  }
+
   public signIn() {
-    this.userService.signIn(this.login, this.password).subscribe((data:number) => {
-      // TODO: move to separate AuthSrvice
-      localStorage.setItem("userId", data.toString());
-      this.router.navigate([{ outlets: { primary: ['main','files'], sidebar: ['sidebar','user'] }}]);
-    }, error => console.error(error));
+
+    let login = this.loginReactiveForm.value["login"];
+    let password = this.loginReactiveForm.value["password"];
+
+    this.authenticationService.signIn(login, password)
   }
 
   public signUp() {

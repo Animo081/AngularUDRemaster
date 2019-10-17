@@ -1,8 +1,9 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormGroup, FormBuilder } from "@angular/forms";
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from "@angular/forms";
+
+import { AuthenticationService } from "../../service/user/authentication.service";
 import { User } from "../../wrappers/user";
-import { UserService } from "../../service/user.service";
-import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-user',
@@ -11,50 +12,41 @@ import { Router } from "@angular/router";
 })
 export class UserComponent implements OnInit {
 
-  // TODO: Consider using FromBuilder
-  private userForm: FormGroup = new FormGroup({
-    username: new FormControl(),
-    email: new FormControl(),
-    description: new FormControl(),
-  });
+  private userReactiveForm: FormGroup;
 
   constructor(
-    private userService: UserService,
-    private router: Router,
+    private authenticationService: AuthenticationService,
+    private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar,
   ) {}
 
   ngOnInit() {
 
-    // TODO: move to AuthService
-    if (localStorage.getItem("userId") == null) {
-      this.router.navigate([{ outlets: { primary: ['main','welcome'], sidebar: ['sidebar','login'] }}]);
-    } else {
-      this.userService.getUser().subscribe((data: User) => {
-        // TODO: use patchValue instead of few setValue methods
-        this.userForm.get("username").setValue(data.username);
-        this.userForm.get("email").setValue(data.email);
-        this.userForm.get("description").setValue(data.description);
+    this.initForm();
+
+    if (this.authenticationService.isAuthorized()) {
+      this.authenticationService.getCurrentUser().subscribe((data: User) => {
+        this.userReactiveForm.patchValue(data);
       });
     }
   }
 
-  public submitForm(formGroup: FormGroup) {
-
-      // TODO: use form value for data
-      this.userService.updateUserData(
-        new User(
-        parseInt(localStorage.getItem("userId")),
-        formGroup.value.username,
-        formGroup.value.email,
-        formGroup.value.description
-    ));
+  private initForm() {
+    this.userReactiveForm = this.formBuilder.group({
+      username: [],
+      email: [],
+      description: []
+    });
   }
 
-  // TODO: method should start from lowerCase
-  public Logout() {
-    // TODO: use AuthService for logout
-    localStorage.removeItem("userId");
-    // TODO: use redirect instead of reload
-    window.location.reload();
+  public submit() {
+    this.authenticationService.updateUserData(this.userReactiveForm.value).subscribe(
+      data => this.snackBar.open("All Changes Saved", null, { duration: 2000 }),
+      error => console.error(error)
+    );
+  }
+
+  public signOut() {
+    this.authenticationService.signOut();
   }
 }

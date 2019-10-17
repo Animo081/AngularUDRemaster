@@ -1,15 +1,17 @@
-<form [formGroup]="userForm">
+<form [formGroup]="userReactiveForm">
   <mat-form-field>
-    <input matInput type="text" formControlName="username" placeholder="Username" (focusout)="submitForm(userForm)">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput type="text" formControlName="email" placeholder="E-mail" (focusout)="submitForm(userForm)">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput type="text" formControlName="description" placeholder="Bio" (focusout)="submitForm(userForm)">
+    <input matInput type="text" placeholder="Username" formControlName="username">
   </mat-form-field>
 
-  <!-- TODO: use submit button instead of few focus events-->
+  <mat-form-field>
+    <input matInput type="text" placeholder="E-mail" formControlName="email">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="text" placeholder="Bio" formControlName="description">
+  </mat-form-field>
+
+  <button mat-raised-button class="signOutButton" (click)="signOut()" color="primary">Sign Out</button>
+  <button mat-raised-button class="submitButton" (click)="submit()" color="primary">Submit</button>
 </form>
 
-<button mat-raised-button class="logoutButton" (click)="Logout()" color="primary">Log out</button>

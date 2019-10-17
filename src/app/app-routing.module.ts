@@ -1,20 +1,21 @@
-import { NgModule, OnInit } from '@angular/core';
-import { Routes, Router, RouterModule, PreloadAllModules } from '@angular/router';
-import { LoginComponent } from './sidebar/login/login.component';
-import { RegistrationComponent } from './sidebar/registration/registration.component';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { NgModule } from '@angular/core';
+
 import { MainComponent } from './main/main.component';
 import { WelcomeComponent } from "./main/weclome/welcome.component";
-import {FilesComponent} from "./main/files/files.component";
-import {SidebarComponent} from "./sidebar/sidebar.component";
-import {UserComponent} from "./sidebar/user/user.component";
+import { FilesComponent } from "./main/files/files.component";
+import { SidebarComponent } from "./sidebar/sidebar.component";
+import { LoginComponent } from './sidebar/login/login.component';
+import { RegistrationComponent } from './sidebar/registration/registration.component';
+import { UserComponent } from "./sidebar/user/user.component";
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo:'/main/welcome(sidebar:/sidebar/login)'},
+  { path: '', pathMatch: 'full', redirectTo:'/main/welcome(sidebar:/sidebar/login)' },
   { path: 'main', component: MainComponent,
     children: [
-      { path: '', pathMatch: 'full', redirectTo: 'welcome'},
-      { path: 'welcome', component: WelcomeComponent},
-      { path: 'files', component: FilesComponent}
+      { path: '', pathMatch: 'full', redirectTo: 'welcome' },
+      { path: 'welcome', component: WelcomeComponent },
+      { path: 'files', component: FilesComponent }
     ]},
   { path: 'sidebar', component: SidebarComponent, outlet: 'sidebar',
     children: [

@@ -16,6 +16,8 @@ export class FileService {
 
   public getUserFiles(page: number, size: number): Observable<File[]> {
 
+    /* TODO: remove +  */
+    /* TODO: move localStorage.getItem to AuthService */
     return this.http.get<File[]>( environment.apiUrl + "file/download", {
       params : {
         userid: localStorage.getItem("userId"),
@@ -26,8 +28,9 @@ export class FileService {
   }
 
   public getFilesCount(): Observable<number> {
-
-    return this.http.get<number>(environment.apiUrl + "file/count", {
+    /* TODO: look behind you */
+    /* TODO: move localStorage.getItem to AuthService */
+    return this.http.get<number>(`${environment.apiUrl}file/count`, {
       params : { userid: localStorage.getItem("userId") }
     });
   }

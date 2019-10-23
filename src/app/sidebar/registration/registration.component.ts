@@ -37,6 +37,7 @@ export class RegistrationComponent implements OnInit {
     let login = this.registerReactiveForm.value["login"];
     let password = this.registerReactiveForm.value["password"];
 
+    /*  TODO: don't forget */
     this.authenticationService.signUp(login, password);
   }
 

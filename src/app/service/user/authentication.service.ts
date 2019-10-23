@@ -17,22 +17,23 @@ export class AuthenticationService {
   ) {}
 
   public signIn(login: string, password: string) {
-
     localStorage.setItem("token",  `Basic ${btoa(login+':'+password)}`);
 
     this.http.get<number>(environment.apiUrl + 'user/login', {
     }).subscribe(
-      (data:number) => {
+      (data: number) => {
         localStorage.setItem("userId", data.toString());
         this.router.navigate([{ outlets: { primary: ['main','files'], sidebar: ['sidebar','user'] }}]);
       },
       error => {
         console.log(error);
+        /* TODO: use this.signOut(); */
         localStorage.removeItem("token");
       }
     );
   }
 
+  /* TODO: send formValue instead separate params. */
   public signUp(login: string, password: string) {
 
     this.http.post(environment.apiUrl + 'user/register', {}, {
@@ -52,6 +53,7 @@ export class AuthenticationService {
   public isAuthorized(): boolean {
 
     if (localStorage.getItem("userId") == null) {
+      /* TODO: use this.signOut(); */
       this.router.navigate([{ outlets: { primary: ['main','welcome'], sidebar: ['sidebar','login'] }}]);
       return false;
     } else {

@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
   }
 
   private initForm() {
+    /* TODO: login and password are required field. Add required validation. */
     this.loginReactiveForm = this.formBuilder.group({
       login: [],
       password: []
@@ -38,7 +39,8 @@ export class LoginComponent implements OnInit {
     let login = this.loginReactiveForm.value["login"];
     let password = this.loginReactiveForm.value["password"];
 
-    this.authenticationService.signIn(login, password)
+    /* TODO: send formValue instead separate params. */
+    this.authenticationService.signIn(login, password);
   }
 
   public signUp() {

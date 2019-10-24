@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { environment } from "../../../environments/environment";
 import { User } from "../../wrappers/user";
 import { Observable } from "rxjs";
+import { LoginData } from "../../sidebar/login/shared/login-data";
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +17,18 @@ export class AuthenticationService {
     private router: Router,
   ) {}
 
-  public signIn(login: string, password: string) {
-    localStorage.setItem("token",  `Basic ${btoa(login+':'+password)}`);
+  public getUserId(): number {
+    return parseInt(localStorage.getItem("userId"));
+  }
 
-    this.http.get<number>(environment.apiUrl + 'user/login', {
+  public setUserId(userId: number) {
+    localStorage.setItem("userId", userId.toString());
+  }
+
+  public signIn(loginData: LoginData) {
+    localStorage.setItem("token",  `Basic ${btoa(loginData.login+':'+loginData.password)}`);
+
+    this.http.get<number>(`${environment.apiUrl}user/login`, {
     }).subscribe(
       (data: number) => {
         localStorage.setItem("userId", data.toString());
@@ -27,17 +36,15 @@ export class AuthenticationService {
       },
       error => {
         console.log(error);
-        /* TODO: use this.signOut(); */
-        localStorage.removeItem("token");
+        this.signOut();
       }
     );
   }
 
-  /* TODO: send formValue instead separate params. */
-  public signUp(login: string, password: string) {
+  public signUp(loginData: LoginData) {
 
-    this.http.post(environment.apiUrl + 'user/register', {}, {
-      params: { login: login, password: password }
+    this.http.post(`${environment.apiUrl}user/register`, {}, {
+      params: { login: loginData.login, password: loginData.password }
     }).subscribe(
       date => this.router.navigate([{ outlets: { sidebar: ['sidebar','login'] }}]),
       error => console.log(error)
@@ -53,8 +60,7 @@ export class AuthenticationService {
   public isAuthorized(): boolean {
 
     if (localStorage.getItem("userId") == null) {
-      /* TODO: use this.signOut(); */
-      this.router.navigate([{ outlets: { primary: ['main','welcome'], sidebar: ['sidebar','login'] }}]);
+      this.signOut();
       return false;
     } else {
       return true;
@@ -62,13 +68,12 @@ export class AuthenticationService {
   }
 
   public isAuthenticated(): boolean {
-
     return localStorage.getItem("token") != null;
   }
 
   public getCurrentUser(): Observable<User> {
-    return this.http.get<User>(environment.apiUrl + 'user/data', {
-      params: {userid: localStorage.getItem("userId")},
+    return this.http.get<User>(`${environment.apiUrl}user/data`, {
+      params: {userid: this.getUserId().toString()},
     });
   }
 

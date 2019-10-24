@@ -1,14 +1,14 @@
-<!-- TODO: use submit metthod for form -->
-<form [formGroup]="loginReactiveForm">
+<form [formGroup]="loginReactiveForm" (submit)="signIn()">
+
   <mat-form-field>
-    <!-- TODO: remove br ell -->
-    <input matInput type="text" placeholder="Login" formControlName="login"><br>
+    <input matInput type="text" placeholder="Login" formControlName="login">
   </mat-form-field>
 
   <mat-form-field>
     <input matInput type="password" placeholder="Password" formControlName="password">
   </mat-form-field>
 
-  <button mat-raised-button class="signUpButton" (click)="signUp()" color="primary">Sign Up</button>
-  <button mat-raised-button class="signInButton" (click)="signIn()" color="primary">Sign In</button>
+  <button mat-raised-button type="button" class="signUpButton" (click)="signUp()" color="primary">Sign Up</button>
+  <button mat-raised-button type="submit" class="signInButton" color="primary">Sign In</button>
+
 </form>

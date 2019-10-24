@@ -1,9 +1,9 @@
-import { Component, Injectable, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Component, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import {AuthenticationService} from "../../service/user/authentication.service";
+import { AuthenticationService } from "../../service/user/authentication.service";
 
 @Component({
   selector: 'app-login',
@@ -11,7 +11,7 @@ import {AuthenticationService} from "../../service/user/authentication.service";
   styleUrls: ['./login.component.scss'],
 })
 @Injectable()
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   private loginReactiveForm: FormGroup;
 
@@ -20,27 +20,15 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private router: Router,
-  ) {}
-
-  ngOnInit() {
-    this.initForm();
-  }
-
-  private initForm() {
-    /* TODO: login and password are required field. Add required validation. */
+  ) {
     this.loginReactiveForm = this.formBuilder.group({
-      login: [],
-      password: []
+      login: ['', Validators.required],
+      password: ['', Validators.required]
     });
   }
 
   public signIn() {
-
-    let login = this.loginReactiveForm.value["login"];
-    let password = this.loginReactiveForm.value["password"];
-
-    /* TODO: send formValue instead separate params. */
-    this.authenticationService.signIn(login, password);
+    this.authenticationService.signIn(this.loginReactiveForm.value);
   }
 
   public signUp() {
